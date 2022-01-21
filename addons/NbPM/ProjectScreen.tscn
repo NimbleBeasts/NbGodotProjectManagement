@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/NbPM/ProjectScreen.gd" type="Script" id=1]
+
+[node name="PM" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 200, 200 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="HBoxContainer" parent="."]
+margin_right = 1024.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+
+[node name="SettingsButton" type="Button" parent="Toolbar"]
+margin_right = 63.0
+margin_bottom = 24.0
+text = "Settings"
+
+[node name="SettingsWindow" type="Control" parent="."]
+visible = false
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 240 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="ColorRect" parent="SettingsWindow"]
+anchor_right = 1.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 0.321569, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="SettingsWindow/Toolbar"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "test"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scroll" type="ScrollContainer" parent="."]
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 596.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_vertical_enabled = false
+
+[node name="h" type="HBoxContainer" parent="Scroll"]
+margin_right = 1352.0
+margin_bottom = 556.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 24
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_top = 600.0
+margin_right = 1024.0
+margin_bottom = 600.0
+
+[connection signal="button_up" from="Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]

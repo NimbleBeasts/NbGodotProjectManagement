@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/NbPM/Lane.gd" type="Script" id=1]
+
+[node name="Lane" type="Panel"]
+margin_right = 320.0
+margin_bottom = 568.0
+rect_min_size = Vector2( 320, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="HBoxContainer" parent="v"]
+margin_right = 320.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 0, 28 )
+
+[node name="ItemCount" type="Label" parent="v/Toolbar"]
+margin_right = 28.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 28, 28 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="Title" type="Label" parent="v/Toolbar"]
+margin_left = 32.0
+margin_top = 7.0
+margin_right = 69.0
+margin_bottom = 21.0
+text = "To Do"
+
+[node name="Spacer" type="Control" parent="v/Toolbar"]
+margin_left = 73.0
+margin_right = 296.0
+margin_bottom = 28.0
+size_flags_horizontal = 3
+
+[node name="MenuButton" type="Button" parent="v/Toolbar"]
+margin_left = 300.0
+margin_right = 320.0
+margin_bottom = 28.0
+text = "+"
+
+[node name="Items" type="ScrollContainer" parent="v"]
+margin_top = 32.0
+margin_right = 320.0
+margin_bottom = 568.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+scroll_horizontal_enabled = false
+
+[node name="v" type="VBoxContainer" parent="v/Items"]
+margin_right = 320.0
+size_flags_horizontal = 3
+custom_constants/separation = 0

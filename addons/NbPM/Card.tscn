@@ -1,0 +1,115 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/NbPM/Card.gd" type="Script" id=1]
+[ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=2]
+
+[node name="Card" type="Control"]
+margin_right = 308.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 0, 140 )
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+color = Color( 0.2, 0.231373, 0.309804, 1 )
+
+[node name="v" type="VBoxContainer" parent="Bg"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Bg/v"]
+margin_right = 284.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 16 )
+size_flags_horizontal = 3
+custom_constants/separation = 8
+
+[node name="Icon" type="TextureRect" parent="Bg/v/HBoxContainer"]
+margin_right = 16.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Bg/v/HBoxContainer"]
+margin_left = 24.0
+margin_top = 2.0
+margin_right = 224.0
+margin_bottom = 18.0
+rect_min_size = Vector2( 0, 16 )
+size_flags_horizontal = 3
+text = "Todotitle"
+clip_text = true
+
+[node name="View" type="Button" parent="Bg/v/HBoxContainer"]
+margin_left = 232.0
+margin_right = 251.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "v"
+expand_icon = true
+
+[node name="Menu2" type="MenuButton" parent="Bg/v/HBoxContainer"]
+margin_left = 259.0
+margin_right = 284.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 16, 16 )
+focus_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "m"
+flat = false
+expand_icon = true
+
+[node name="Content" type="Control" parent="Bg/v"]
+margin_top = 24.0
+margin_right = 284.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Bg/v/Content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "asdasd
+asd
+asd
+
+asd
+asd
+asd
+asd
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Bg/v/HBoxContainer/View" to="." method="_on_Menu_button_up"]
+[connection signal="button_up" from="Bg/v/HBoxContainer/Menu2" to="." method="_on_Menu_button_up"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://TodoTest.gd" type="Script" id=1]
+
+[node name="NbTodo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ToolbarBox" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+margin_bottom = 24.0
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DropdownMenu" type="MenuButton" parent="ToolbarBox"]
+margin_left = 1012.0
+margin_right = 1024.0
+margin_bottom = 24.0
+
+[node name="Tree" type="Tree" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 26.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="."]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Rescan"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+margin_left = 559.0
+margin_top = 33.0
+margin_right = 988.0
+margin_bottom = 407.0
+
+[connection signal="button_pressed" from="Tree" to="." method="_on_Tree_button_pressed"]
+[connection signal="item_activated" from="Tree" to="." method="_on_Tree_item_activated"]
+[connection signal="button_up" from="Button" to="." method="_on_Button_button_up"]
