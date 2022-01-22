@@ -54,14 +54,14 @@ __meta__ = {
 [node name="Scroll" type="ScrollContainer" parent="."]
 margin_top = 28.0
 margin_right = 1024.0
-margin_bottom = 596.0
+margin_bottom = 581.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_vertical_enabled = false
 
 [node name="h" type="HBoxContainer" parent="Scroll"]
 margin_right = 1352.0
-margin_bottom = 556.0
+margin_bottom = 541.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 24
@@ -70,8 +70,9 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_top = 600.0
+margin_top = 585.0
 margin_right = 1024.0
 margin_bottom = 600.0
+fit_content_height = true
 
 [connection signal="button_up" from="Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]
