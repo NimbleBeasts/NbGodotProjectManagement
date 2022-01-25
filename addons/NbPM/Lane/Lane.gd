@@ -6,21 +6,20 @@ signal item_drag_start()
 var pm_ref = null
 
 const Scene_Card = preload("res://addons/NbPM/card/Card.tscn")
+
 var _id = 0
+
+
 
 func setup(ref, title, id):
 	$v/Toolbar/Title.set_text(title)
 	pm_ref = ref
 	_id = id
-	
-#	var cnt = 0
-#	for i in range(randi() % 7):
-#		var card = Scene_Card.instance()
-#		card.setup(pm_ref)
-#		$v/Items/v.add_child(card)
-#		cnt += 1
-#
-#	$v/Toolbar/ItemCount.set_text(str(cnt))
+
+
+func drop(data):
+	pm_ref.move_task(_id, data)
+	pm_ref.stop_card_drag()
 
 func clear():
 	for card in $v/Items/v.get_children():

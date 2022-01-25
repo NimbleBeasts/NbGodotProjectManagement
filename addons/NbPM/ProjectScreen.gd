@@ -112,11 +112,11 @@ func _store_taks():
 	pass
 
 
-func _input(event):
+func _process(delta):
 	if drag:
-		if event is InputEventMouseButton:
-			if event.get_button_index() == BUTTON_LEFT and event.pressed == false:
-				stop_card_drag()
+		if not Input.is_mouse_button_pressed(BUTTON_LEFT):
+			stop_card_drag()
+
 
 func start_card_drag():
 	for child in $Scroll/h.get_children():
@@ -142,6 +142,18 @@ func _on_SettingsButton_button_up():
 func _on_TaskViewCloseButton_button_up():
 	$TaskView.hide()
 
+func move_task(id, task_hash):
+	
+	for task in tasks:
+		if task.hash == task_hash:
+			var data = task.duplicate()
+			data.category = id
+			var file = File.new()
+			file.open(task_directory + "/" + task_hash + ".task", File.WRITE)
+			file.store_line(JSON.print(data, "\t"))
+			file.close()
+			_update_tasks()
+			break
 
 func _on_TaskViewSaveButton_button_up():
 	if task_timestamp == 0:

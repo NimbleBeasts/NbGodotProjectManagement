@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/NbPM/lane/Lane.gd" type="Script" id=1]
-[ext_resource path="res://addons/NbPM/DropZone.gd" type="Script" id=2]
-[ext_resource path="res://addons/NbPM/ninepatch.png" type="Texture" id=3]
+[ext_resource path="res://addons/NbPM/lane/DropZone.tscn" type="PackedScene" id=2]
 
 [node name="Lane" type="Panel"]
 margin_right = 320.0
@@ -65,27 +64,7 @@ margin_right = 320.0
 size_flags_horizontal = 3
 custom_constants/separation = 0
 
-[node name="DropZone" type="NinePatchRect" parent="."]
+[node name="DropZone" parent="." instance=ExtResource( 2 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-mouse_filter = 0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource( 3 )
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [connection signal="button_up" from="v/Toolbar/AddTaskButton" to="." method="_on_AddTaskButton_button_up"]

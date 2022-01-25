@@ -1,3 +1,4 @@
+tool
 extends NinePatchRect
 
 
@@ -8,14 +9,17 @@ extends NinePatchRect
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("drop setup")
 
 
 func can_drop_data(position, data):
-	print("can drop data")
+	#print("can drop data")
 	return true
 
 
 func drop_data(position, data):
-	get_parent().pm_ref.stop_card_drag()
-	print("attempting to drop")
+	print("drop")
+	print(data)
+	get_parent().drop(data)
+	#get_parent().pm_ref.stop_card_drag()
+

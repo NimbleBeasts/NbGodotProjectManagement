@@ -19,6 +19,18 @@ func setup(ref, context):
 	popup_menu.add_item("Delete")
 
 
+const Scene_Preview = preload("res://addons/NbPM/card/DragPreview.tscn")
+
+
+
+func get_drag_data(_pos):
+	var preview = Scene_Preview.instance()
+	set_drag_preview(preview)
+
+	if pm_ref:
+		pm_ref.start_card_drag()
+	return _context.hash
+
 #TODO: handover EditorPlugin.get_editor_interface().get_editor_settings().get_setting("interface/theme/base_color")
 
 	
@@ -28,3 +40,4 @@ func _on_Menu_button_up():
 
 func _on_View_button_up():
 	pm_ref.view_task(_context.hash)
+

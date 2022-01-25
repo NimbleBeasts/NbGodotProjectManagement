@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/NbPM/card/Dragable.gd" type="Script" id=1]
 [ext_resource path="res://addons/NbPM/card/Card.gd" type="Script" id=2]
 [ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=3]
 [ext_resource path="res://addons/NbPM/font/font12.tres" type="DynamicFont" id=4]
@@ -26,8 +25,8 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
+mouse_filter = 1
 color = Color( 0.2, 0.231373, 0.309804, 1 )
-script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
