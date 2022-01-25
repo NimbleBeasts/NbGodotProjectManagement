@@ -97,14 +97,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TitleEdit" type="LineEdit" parent="TaskView/Toolbar"]
+[node name="Title" type="LineEdit" parent="TaskView/Toolbar"]
 margin_left = 48.0
 margin_top = 28.0
 margin_right = 298.0
 margin_bottom = 52.0
 text = "Task Title"
 
-[node name="Label" type="Label" parent="TaskView/Toolbar/TitleEdit"]
+[node name="Label" type="Label" parent="TaskView/Toolbar/Title"]
 margin_left = -41.0
 margin_right = -1.0
 margin_bottom = 24.0
@@ -114,23 +114,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StageButton" type="OptionButton" parent="TaskView/Toolbar"]
+[node name="Stage" type="OptionButton" parent="TaskView/Toolbar"]
 margin_left = 368.0
 margin_top = 28.0
 margin_right = 512.0
 margin_bottom = 48.0
+text = "Backlog"
+items = [ "Backlog", null, false, 0, null, "To do", null, false, 1, null, "In progress", null, false, 2, null, "Done", null, false, 3, null ]
+selected = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TaskView/Toolbar/StageButton"]
+[node name="Label" type="Label" parent="TaskView/Toolbar/Stage"]
 margin_left = -48.0
 margin_right = -8.0
 margin_bottom = 24.0
 text = "Stage"
 valign = 1
 
-[node name="AssignedButton" type="OptionButton" parent="TaskView/Toolbar"]
+[node name="Assigned" type="OptionButton" parent="TaskView/Toolbar"]
 margin_left = 608.0
 margin_top = 28.0
 margin_right = 752.0
@@ -139,7 +142,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TaskView/Toolbar/AssignedButton"]
+[node name="Label" type="Label" parent="TaskView/Toolbar/Assigned"]
 margin_left = -72.0
 margin_right = 6.0
 margin_bottom = 24.0
@@ -152,6 +155,19 @@ margin_top = 28.0
 margin_right = 856.0
 margin_bottom = 42.0
 text = "Timestamp"
+
+[node name="Description" type="TextEdit" parent="TaskView/Toolbar"]
+margin_left = 8.0
+margin_top = 60.0
+margin_right = 704.0
+margin_bottom = 228.0
+
+[node name="SaveButton" type="Button" parent="TaskView/Toolbar"]
+margin_left = 736.0
+margin_top = 60.0
+margin_right = 856.0
+margin_bottom = 80.0
+text = "Save"
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 margin_top = 28.0
@@ -179,3 +195,4 @@ fit_content_height = true
 
 [connection signal="button_up" from="Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]
 [connection signal="button_up" from="TaskView/Toolbar/CloseButton" to="." method="_on_TaskViewCloseButton_button_up"]
+[connection signal="button_up" from="TaskView/Toolbar/SaveButton" to="." method="_on_TaskViewSaveButton_button_up"]

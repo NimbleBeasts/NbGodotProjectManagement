@@ -5,7 +5,7 @@ signal item_drag_start()
 
 var pm_ref = null
 
-const Scene_Card = preload("res://addons/NbPM/Card/Card.tscn")
+const Scene_Card = preload("res://addons/NbPM/card/Card.tscn")
 var _id = 0
 
 func setup(ref, title, id):
@@ -23,7 +23,8 @@ func setup(ref, title, id):
 #	$v/Toolbar/ItemCount.set_text(str(cnt))
 
 func clear():
-	pass
+	for card in $v/Items/v.get_children():
+		card.queue_free()
 
 func add(context):
 	var card = Scene_Card.instance()
@@ -40,4 +41,4 @@ func drag_stop():
 
 
 func _on_AddTaskButton_button_up():
-	pm_ref.add_new_task(_id)
+	pm_ref.new_task(_id)

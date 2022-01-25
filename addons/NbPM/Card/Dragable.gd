@@ -1,6 +1,6 @@
 extends ColorRect
 
-const Scene_Preview = preload("res://addons/NbPM/Card/DragPreview.tscn")
+const Scene_Preview = preload("res://addons/NbPM/card/DragPreview.tscn")
 
 var pm_ref = null
 
