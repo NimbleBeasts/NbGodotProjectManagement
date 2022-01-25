@@ -4,26 +4,46 @@ extends Control
 var ref = null
 
 var exclude_dir_list = ["addons"]
+var tags = []
 var regex = RegEx.new()
+
 
 var _file_list = []
 
 var _todo_database = []
 
-func setup(loader_ref, database):
-	ref = loader_ref
-	_todo_database = database
+func update_project_config(config):
+	# Parse exclude list
+	exclude_dir_list = []
+	for folder in config.exclude_folders:
+		exclude_dir_list.append(folder)
 	
-	# Setup Todo Dock
-	setup_dropdown()
-	
+	var string = ""
+	# Parse tags
+	tags = config.tags.duplicate()
+	for tag in tags:
+		string += tag + "|"
+	string = string.trim_suffix("|")
 
 	# Search regex
-	regex.compile("(?:#|//)\\s*(TODO|FIXME|NOTE)\\s*(\\:)?\\s*([^\\n]+)")
+	var regex_string = "(?:#|//)\\s*(%s)\\s*(\\:)?\\s*([^\\n]+)" % string
+	regex.compile(regex_string)
+	print("scanning with: " + regex_string)
 	assert(regex.is_valid())
 
-	print("setup")
-	#_update_todos()
+	# Setup Todo Dock
+	setup_dropdown()
+
+	# Update
+	_update_todos()
+
+
+func setup(loader_ref, config, database):
+	ref = loader_ref
+	_todo_database = database
+
+	# Parse configs
+	update_project_config(config)
 
 	# Signals
 	ref.get_editor_interface().get_resource_filesystem().connect("filesystem_changed", self, "_update_todos")
@@ -32,9 +52,11 @@ func setup(loader_ref, database):
 func setup_dropdown():
 	$ToolbarBox/DropdownMenu.icon = ref.get_editor_interface().get_base_control().get_icon("GuiDropdown", "EditorIcons")
 	var popup_menu = $ToolbarBox/DropdownMenu.get_popup()
-	popup_menu.add_check_item("Show TODO")
-	popup_menu.add_check_item("Show FIXME")
-	popup_menu.add_check_item("Show NOTE")
+	popup_menu.clear()
+	for tag in tags:
+		popup_menu.add_check_item("Show " + str(tag))
+		#TODO
+
 	popup_menu.add_separator()
 	popup_menu.add_item("Help", 10)
 	popup_menu.connect("id_pressed", self, "_menu_click")
@@ -133,10 +155,10 @@ func _scan_directory(path = "res://"):
 					changes += _scan_directory(file_path)
 			else:
 				if file_name.get_extension() == "gd":
-					print("scan file: " + file_name)
 					_file_list.append(file_path)
 					# Scan file
 					changes += _scan_file(path, file_name)
+					print("-----------------------------------")
 			
 			file_name = dir.get_next()
 	
@@ -158,21 +180,31 @@ func _scan_file(path, file_name):
 	
 	# Get file hash
 	var file_hash = file.get_sha256(file_path)
-
 	# Look up file in database, check for modification
 	var db_index = _db_find_index_by_file_path(file_path)
+
+	print("file: " + file_name)
+	
+	# Check if we have an existing library
 	if db_index != -1:
 		if _todo_database[db_index].hash == file_hash:
 			# File has not been changed since last parsing
+			print("no changes")
 			return 0
-	
-	# Clear old entries
-	_todo_database[db_index].todos = []
+
+		# Clear old entries
+		_todo_database[db_index].todos = []
+
 	
 	# Load source and parse the source code
 	var source = load(file_path).source_code
 	var regex_findings = regex.search_all(source)
-	
+
+	# Create db file entry if needed
+	if db_index == -1:
+		_todo_database.append({"file_path": file_path, "hash": file_hash, "todos": []})
+		db_index = _todo_database.size() - 1
+
 	# Parse regex findings
 	for finding in regex_findings:
 		# TYPE: text
@@ -187,11 +219,8 @@ func _scan_file(path, file_name):
 		
 		_todo_database[db_index].todos.append({"type": type, "line": line_count, "description": description, "task_id": -1})
 		changes += 1
-		
-	# Create db file entry if needed
-	if db_index == -1:
-		_todo_database.append({"file_path": file_path, "hash": file_hash, "todos": []})
 	
+	print("todos found: " + str(changes))
 #	print(file_path)
 #	print(file_hash)
 #	print(todos)

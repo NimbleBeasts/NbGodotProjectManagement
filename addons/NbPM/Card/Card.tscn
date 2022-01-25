@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/NbPM/Card.gd" type="Script" id=1]
-[ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=2]
-[ext_resource path="res://addons/NbPM/Button.gd" type="Script" id=3]
+[ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=1]
+[ext_resource path="res://addons/NbPM/Card/Card.gd" type="Script" id=2]
+[ext_resource path="res://addons/NbPM/Card/Dragable.gd" type="Script" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -10,10 +10,10 @@
 
 [node name="Card" type="Control"]
 margin_right = 308.0
-margin_bottom = 220.0
-rect_min_size = Vector2( 0, 220 )
+margin_bottom = 235.0
+rect_min_size = Vector2( 0, 235 )
 size_flags_horizontal = 3
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -26,6 +26,7 @@ margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
 color = Color( 0.2, 0.231373, 0.309804, 1 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,7 +57,7 @@ margin_bottom = 16.0
 rect_min_size = Vector2( 16, 16 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource( 2 )
+texture = ExtResource( 1 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -97,7 +98,8 @@ expand_icon = true
 [node name="Content" type="Control" parent="Bg/v"]
 margin_top = 24.0
 margin_right = 284.0
-margin_bottom = 196.0
+margin_bottom = 211.0
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -106,11 +108,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_bottom = -20.0
 rect_min_size = Vector2( 0, 92 )
+mouse_filter = 1
 size_flags_horizontal = 3
 size_flags_vertical = 0
 custom_styles/focus = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 bbcode_text = "asasdas
+asdas
 asdas
 asdas
 asdas
@@ -133,19 +137,10 @@ asdas
 asdas
 asdas
 asdas
+asdas
 "
 fit_content_height = true
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Button" type="Button" parent="Bg"]
-margin_left = 112.0
-margin_top = 3.0
-margin_right = 181.0
-margin_bottom = 23.0
-script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -51,6 +51,108 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TaskView" type="Control" parent="."]
+visible = false
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 268.0
+rect_min_size = Vector2( 0, 240 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="TaskView"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Toolbar" type="ColorRect" parent="TaskView"]
+anchor_right = 1.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 0.321569, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="Button" parent="TaskView/Toolbar"]
+margin_left = 75.0
+margin_top = 2.0
+margin_right = 94.0
+margin_bottom = 22.0
+text = "x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TaskView/Toolbar"]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "View Task"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleEdit" type="LineEdit" parent="TaskView/Toolbar"]
+margin_left = 48.0
+margin_top = 28.0
+margin_right = 298.0
+margin_bottom = 52.0
+text = "Task Title"
+
+[node name="Label" type="Label" parent="TaskView/Toolbar/TitleEdit"]
+margin_left = -41.0
+margin_right = -1.0
+margin_bottom = 24.0
+text = "Title"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StageButton" type="OptionButton" parent="TaskView/Toolbar"]
+margin_left = 368.0
+margin_top = 28.0
+margin_right = 512.0
+margin_bottom = 48.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TaskView/Toolbar/StageButton"]
+margin_left = -48.0
+margin_right = -8.0
+margin_bottom = 24.0
+text = "Stage"
+valign = 1
+
+[node name="AssignedButton" type="OptionButton" parent="TaskView/Toolbar"]
+margin_left = 608.0
+margin_top = 28.0
+margin_right = 752.0
+margin_bottom = 48.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TaskView/Toolbar/AssignedButton"]
+margin_left = -72.0
+margin_right = 6.0
+margin_bottom = 24.0
+text = "Assigned"
+valign = 1
+
+[node name="TimestampLabel" type="Label" parent="TaskView/Toolbar"]
+margin_left = 784.0
+margin_top = 28.0
+margin_right = 856.0
+margin_bottom = 42.0
+text = "Timestamp"
+
 [node name="Scroll" type="ScrollContainer" parent="."]
 margin_top = 28.0
 margin_right = 1024.0
@@ -76,3 +178,4 @@ margin_bottom = 600.0
 fit_content_height = true
 
 [connection signal="button_up" from="Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]
+[connection signal="button_up" from="TaskView/Toolbar/CloseButton" to="." method="_on_TaskViewCloseButton_button_up"]

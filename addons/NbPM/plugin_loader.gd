@@ -26,6 +26,7 @@ extends EditorPlugin
 # Plugin Consts
 ###############################################################################
 const PM_DIRECTORY = "res://_PM/"
+const PM_TASK_DIRECTORY = "res://_PM/tasks"
 const PM_PROJECT_CONFIG = "project.cfg"
 const PM_USER_CONFIG = "user.cfg"
 const TODO_CACHE = "cache.dat"
@@ -45,7 +46,9 @@ var project_screen_instance = null
 ###############################################################################
 
 var config_project = {
-	"user_names": []
+	"user_names": [],
+	"exclude_folders": ["addons"],
+	"tags": ["TODO", "FIXME", "NOTE"]
 }
 
 var config_user = {
@@ -55,6 +58,8 @@ var config_user = {
 
 var todo_cache = {}
 
+func update_project_config():
+	todo_dock_instance.update_project_config(config_project)
 
 func store_todo_database(database):
 	config_user.todo_database = database
@@ -67,7 +72,6 @@ func jump_to_main_screen(metadata):
 		get_editor_interface().set_main_screen_editor(get_plugin_name())
 
 func _enter_tree():
-	print("load _enter_tree")
 	_load_configs()
 	
 	# Setup main screen
@@ -77,7 +81,7 @@ func _enter_tree():
 	
 	# Setup todo dock
 	todo_dock_instance = Scene_TodoDock.instance()
-	todo_dock_instance.setup(self, config_user.todo_database)
+	todo_dock_instance.setup(self, config_project, config_user.todo_database)
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, todo_dock_instance)
 
 
@@ -108,9 +112,11 @@ func _load_configs():
 	var dir = Directory.new()
 	var cfg = File.new()
 	
-	# Create directory, if not exists
+	# Create directories, if not exists
 	if not dir.dir_exists(PM_DIRECTORY):
 		dir.make_dir(PM_DIRECTORY)
+	if not dir.dir_exists(PM_TASK_DIRECTORY):
+		dir.make_dir(PM_TASK_DIRECTORY)
 	
 	# Project config
 	if not cfg.file_exists(PM_DIRECTORY + PM_PROJECT_CONFIG):
@@ -137,11 +143,13 @@ func _load_configs():
 func _save_config(file: String, settings: Dictionary):
 	var cfg = File.new()
 	cfg.open(PM_DIRECTORY + file, File.WRITE)
-	cfg.store_line(to_json(settings))
+	cfg.store_line(JSON.print(settings, "\t"))
 	cfg.close()
 
 func _load_config(file: String):
 	var cfg = File.new()
 	cfg.open(PM_DIRECTORY + file, File.READ)
-	return parse_json(cfg.get_line())
+	var return_val = parse_json(cfg.get_as_text())
+	cfg.close()
+	return return_val
 
