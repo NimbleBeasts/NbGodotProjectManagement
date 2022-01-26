@@ -12,7 +12,9 @@ var _file_list = []
 
 var _todo_database = []
 
-func update_project_config(config):
+func update_project_config():
+	var config = ref.config_project
+	
 	# Parse exclude list
 	exclude_dir_list = []
 	for folder in config.exclude_folders:
@@ -38,12 +40,12 @@ func update_project_config(config):
 	_update_todos()
 
 
-func setup(loader_ref, config, database):
+func setup(loader_ref, database):
 	ref = loader_ref
 	_todo_database = database
 
 	# Parse configs
-	update_project_config(config)
+	update_project_config()
 
 	# Signals
 	ref.get_editor_interface().get_resource_filesystem().connect("filesystem_changed", self, "_update_todos")

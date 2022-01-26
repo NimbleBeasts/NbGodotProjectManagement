@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/NbPM/icons/trash-solid.svg" type="Texture" id=1]
+[ext_resource path="res://addons/NbPM/settings/InputField.gd" type="Script" id=2]
+
+[node name="InputField" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -880.0
+margin_bottom = -568.0
+rect_min_size = Vector2( 144, 32 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="."]
+margin_left = 8.0
+margin_top = 4.0
+margin_right = 112.0
+margin_bottom = 28.0
+
+[node name="Button" type="Button" parent="."]
+margin_left = 112.0
+margin_top = 4.0
+margin_right = 136.0
+margin_bottom = 28.0
+icon = ExtResource( 1 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_up" from="Button" to="." method="_on_Button_button_up"]

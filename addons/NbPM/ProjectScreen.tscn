@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/NbPM/ProjectScreen.gd" type="Script" id=1]
+[ext_resource path="res://addons/NbPM/icons/save-solid.svg" type="Texture" id=2]
+[ext_resource path="res://addons/NbPM/icons/plus-square-regular.svg" type="Texture" id=3]
+[ext_resource path="res://addons/NbPM/icons/times-solid.svg" type="Texture" id=4]
 
 [node name="PM" type="VBoxContainer"]
 anchor_right = 1.0
@@ -8,6 +11,7 @@ anchor_bottom = 1.0
 rect_min_size = Vector2( 200, 200 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 4
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -18,41 +22,342 @@ margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
+alignment = 2
 
-[node name="SettingsButton" type="Button" parent="Toolbar"]
-margin_right = 63.0
+[node name="Label" type="Label" parent="Toolbar"]
+margin_left = 853.0
+margin_right = 917.0
 margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
 text = "Settings"
+valign = 1
 
-[node name="SettingsWindow" type="Control" parent="."]
+[node name="UserButton" type="Button" parent="Toolbar"]
+margin_left = 921.0
+margin_right = 963.0
+margin_bottom = 24.0
+text = "User"
+
+[node name="ProjectButton" type="Button" parent="Toolbar"]
+margin_left = 967.0
+margin_right = 1024.0
+margin_bottom = 24.0
+text = "Project"
+
+[node name="ProjectSettingsWindow" type="Control" parent="."]
 visible = false
 margin_top = 28.0
 margin_right = 1024.0
-margin_bottom = 268.0
-rect_min_size = Vector2( 0, 240 )
+margin_bottom = 232.0
+rect_min_size = Vector2( 0, 204 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Toolbar" type="ColorRect" parent="SettingsWindow"]
+[node name="Panel" type="Panel" parent="ProjectSettingsWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Toolbar" type="ColorRect" parent="ProjectSettingsWindow"]
+anchor_right = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 1, 1, 1, 0.109804 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="h" type="HBoxContainer" parent="ProjectSettingsWindow/Toolbar"]
 anchor_right = 1.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
-color = Color( 0.321569, 0, 0, 1 )
+size_flags_horizontal = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="SettingsWindow/Toolbar"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "test"
+[node name="Label" type="Label" parent="ProjectSettingsWindow/Toolbar/h"]
+margin_right = 104.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
+text = "Project Settings "
+valign = 1
+
+[node name="Spacer" type="Control" parent="ProjectSettingsWindow/Toolbar/h"]
+margin_left = 108.0
+margin_right = 964.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 24 )
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="ProjectSettingsWindow/Toolbar/h"]
+margin_left = 968.0
+margin_right = 992.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 2 )
+flat = true
+expand_icon = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CloseButton" type="Button" parent="ProjectSettingsWindow/Toolbar/h"]
+margin_left = 996.0
+margin_right = 1020.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 4 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Category" type="Control" parent="ProjectSettingsWindow"]
+margin_left = 8.0
+margin_top = 28.0
+margin_right = 152.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="ProjectSettingsWindow/Category"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="VBoxContainer" parent="ProjectSettingsWindow/Category/scroll"]
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="ProjectSettingsWindow/Category"]
+margin_left = 6.0
+margin_right = 88.0
+margin_bottom = 24.0
+text = "Categories"
+valign = 1
+
+[node name="AddCategory" type="Button" parent="ProjectSettingsWindow/Category"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_right = -8.0
+margin_bottom = 24.0
+icon = ExtResource( 3 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Users" type="Control" parent="ProjectSettingsWindow"]
+margin_left = 160.0
+margin_top = 28.0
+margin_right = 304.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="ProjectSettingsWindow/Users"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="VBoxContainer" parent="ProjectSettingsWindow/Users/scroll"]
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="ProjectSettingsWindow/Users"]
+margin_left = 6.0
+margin_right = 88.0
+margin_bottom = 24.0
+text = "Users"
+valign = 1
+
+[node name="AddUser" type="Button" parent="ProjectSettingsWindow/Users"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_right = -8.0
+margin_bottom = 24.0
+icon = ExtResource( 3 )
+flat = true
+expand_icon = true
+
+[node name="Tags" type="Control" parent="ProjectSettingsWindow"]
+margin_left = 312.0
+margin_top = 28.0
+margin_right = 456.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="ProjectSettingsWindow/Tags"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="VBoxContainer" parent="ProjectSettingsWindow/Tags/scroll"]
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="ProjectSettingsWindow/Tags"]
+margin_left = 6.0
+margin_right = 88.0
+margin_bottom = 24.0
+text = "Tags"
+valign = 1
+
+[node name="AddTag" type="Button" parent="ProjectSettingsWindow/Tags"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_right = -8.0
+margin_bottom = 24.0
+icon = ExtResource( 3 )
+flat = true
+expand_icon = true
+
+[node name="ExcludeFolders" type="Control" parent="ProjectSettingsWindow"]
+margin_left = 464.0
+margin_top = 28.0
+margin_right = 608.0
+margin_bottom = 196.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="scroll" type="ScrollContainer" parent="ProjectSettingsWindow/ExcludeFolders"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 24.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="v" type="VBoxContainer" parent="ProjectSettingsWindow/ExcludeFolders/scroll"]
+custom_constants/separation = 0
+
+[node name="Label" type="Label" parent="ProjectSettingsWindow/ExcludeFolders"]
+margin_left = 6.0
+margin_right = 88.0
+margin_bottom = 24.0
+text = "Exclude Folders"
+valign = 1
+
+[node name="AddFolder" type="Button" parent="ProjectSettingsWindow/ExcludeFolders"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+margin_right = -8.0
+margin_bottom = 24.0
+icon = ExtResource( 3 )
+flat = true
+expand_icon = true
+
+[node name="UserSettingsWindow" type="Control" parent="."]
+visible = false
+margin_top = 28.0
+margin_right = 1024.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 80 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="UserSettingsWindow"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Toolbar" type="ColorRect" parent="UserSettingsWindow"]
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+color = Color( 1, 1, 1, 0.109804 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="h" type="HBoxContainer" parent="UserSettingsWindow/Toolbar"]
+anchor_right = 1.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UserSettingsWindow/Toolbar/h"]
+margin_right = 93.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
+text = "User Selection"
+valign = 1
+
+[node name="Spacer" type="Control" parent="UserSettingsWindow/Toolbar/h"]
+margin_left = 97.0
+margin_right = 962.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 24 )
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="UserSettingsWindow/Toolbar/h"]
+margin_left = 966.0
+margin_right = 990.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 2 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="Button" parent="UserSettingsWindow/Toolbar/h"]
+margin_left = 994.0
+margin_right = 1018.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 4 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UserSelect" type="OptionButton" parent="UserSettingsWindow"]
+margin_left = 160.0
+margin_top = 36.0
+margin_right = 280.0
+margin_bottom = 60.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UserSettingsWindow/UserSelect"]
+margin_left = -152.0
+margin_right = -7.0
+margin_bottom = 24.0
+text = "Select current user"
+valign = 1
 
 [node name="TaskView" type="Control" parent="."]
-visible = false
 margin_top = 28.0
 margin_right = 1024.0
 margin_bottom = 268.0
@@ -72,53 +377,116 @@ __meta__ = {
 
 [node name="Toolbar" type="ColorRect" parent="TaskView"]
 anchor_right = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
-color = Color( 0.321569, 0, 0, 1 )
+color = Color( 1, 1, 1, 0.109804 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CloseButton" type="Button" parent="TaskView/Toolbar"]
-margin_left = 75.0
-margin_top = 2.0
-margin_right = 94.0
-margin_bottom = 22.0
-text = "x"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="TaskView/Toolbar"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "View Task"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Title" type="LineEdit" parent="TaskView/Toolbar"]
-margin_left = 48.0
-margin_top = 28.0
-margin_right = 298.0
-margin_bottom = 52.0
-text = "Task Title"
-
-[node name="Label" type="Label" parent="TaskView/Toolbar/Title"]
-margin_left = -41.0
-margin_right = -1.0
+[node name="h" type="HBoxContainer" parent="TaskView/Toolbar"]
+anchor_right = 1.0
 margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="TaskView/Toolbar/h"]
+margin_right = 64.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
+text = "Task"
+valign = 1
+
+[node name="Spacer" type="Control" parent="TaskView/Toolbar/h"]
+margin_left = 68.0
+margin_right = 960.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 40, 24 )
+size_flags_horizontal = 3
+
+[node name="SaveButton" type="Button" parent="TaskView/Toolbar/h"]
+margin_left = 964.0
+margin_right = 988.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 2 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CloseButton" type="Button" parent="TaskView/Toolbar/h"]
+margin_left = 992.0
+margin_right = 1016.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 4 )
+flat = true
+expand_icon = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="HBoxContainer" parent="TaskView"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 36.0
+margin_right = -8.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TitleLabel" type="Label" parent="TaskView/Input"]
+margin_right = 28.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 text = "Title"
 valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Stage" type="OptionButton" parent="TaskView/Toolbar"]
-margin_left = 368.0
-margin_top = 28.0
-margin_right = 512.0
-margin_bottom = 48.0
+[node name="Title" type="LineEdit" parent="TaskView/Input"]
+margin_left = 32.0
+margin_right = 288.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 256, 24 )
+text = "Task Title"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer2" type="Control" parent="TaskView/Input"]
+margin_left = 292.0
+margin_right = 308.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 16, 24 )
+
+[node name="TitleStage" type="Label" parent="TaskView/Input"]
+margin_left = 312.0
+margin_right = 367.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+text = "Category"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stage" type="OptionButton" parent="TaskView/Input"]
+margin_left = 371.0
+margin_right = 467.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 96, 24 )
 text = "Backlog"
 items = [ "Backlog", null, false, 0, null, "To do", null, false, 1, null, "In progress", null, false, 2, null, "Done", null, false, 3, null ]
 selected = 0
@@ -126,60 +494,71 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TaskView/Toolbar/Stage"]
-margin_left = -48.0
-margin_right = -8.0
+[node name="Spacer3" type="Control" parent="TaskView/Input"]
+margin_left = 471.0
+margin_right = 487.0
 margin_bottom = 24.0
-text = "Stage"
-valign = 1
+rect_min_size = Vector2( 16, 24 )
 
-[node name="Assigned" type="OptionButton" parent="TaskView/Toolbar"]
-margin_left = 608.0
-margin_top = 28.0
-margin_right = 752.0
-margin_bottom = 48.0
+[node name="TitleAssigned" type="Label" parent="TaskView/Input"]
+margin_left = 491.0
+margin_right = 549.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+text = "Assigned"
+valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="TaskView/Toolbar/Assigned"]
-margin_left = -72.0
-margin_right = 6.0
+[node name="Assigned" type="OptionButton" parent="TaskView/Input"]
+margin_left = 553.0
+margin_right = 649.0
 margin_bottom = 24.0
-text = "Assigned"
-valign = 1
+rect_min_size = Vector2( 96, 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="TimestampLabel" type="Label" parent="TaskView/Toolbar"]
-margin_left = 784.0
-margin_top = 28.0
-margin_right = 856.0
-margin_bottom = 42.0
+[node name="Spacer" type="Control" parent="TaskView/Input"]
+margin_left = 653.0
+margin_right = 932.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+
+[node name="TimestampLabel" type="Label" parent="TaskView/Input"]
+margin_left = 936.0
+margin_right = 1008.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 text = "Timestamp"
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="Description" type="TextEdit" parent="TaskView/Toolbar"]
+[node name="Description" type="TextEdit" parent="TaskView"]
+anchor_right = 1.0
 margin_left = 8.0
-margin_top = 60.0
-margin_right = 704.0
-margin_bottom = 228.0
-
-[node name="SaveButton" type="Button" parent="TaskView/Toolbar"]
-margin_left = 736.0
-margin_top = 60.0
-margin_right = 856.0
-margin_bottom = 80.0
-text = "Save"
+margin_top = 68.0
+margin_right = -8.0
+margin_bottom = 236.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Scroll" type="ScrollContainer" parent="."]
-margin_top = 28.0
+margin_top = 272.0
 margin_right = 1024.0
-margin_bottom = 581.0
+margin_bottom = 600.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 scroll_vertical_enabled = false
 
 [node name="h" type="HBoxContainer" parent="Scroll"]
-margin_right = 1352.0
-margin_bottom = 541.0
+margin_right = 1024.0
+margin_bottom = 328.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 24
@@ -187,12 +566,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_top = 585.0
-margin_right = 1024.0
-margin_bottom = 600.0
-fit_content_height = true
-
-[connection signal="button_up" from="Toolbar/SettingsButton" to="." method="_on_SettingsButton_button_up"]
-[connection signal="button_up" from="TaskView/Toolbar/CloseButton" to="." method="_on_TaskViewCloseButton_button_up"]
-[connection signal="button_up" from="TaskView/Toolbar/SaveButton" to="." method="_on_TaskViewSaveButton_button_up"]
+[connection signal="button_up" from="Toolbar/UserButton" to="." method="_on_UserButton_button_up"]
+[connection signal="button_up" from="Toolbar/ProjectButton" to="." method="_on_ProjectButton_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/SaveButton" to="." method="_on_ProjectSettingsSaveButton_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/CloseButton" to="." method="_on_ProjectSettingsCloseButton_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/Category/AddCategory" to="." method="_on_AddCategory_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/Users/AddUser" to="." method="_on_AddUser_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/Tags/AddTag" to="." method="_on_AddTag_button_up"]
+[connection signal="button_up" from="ProjectSettingsWindow/ExcludeFolders/AddFolder" to="." method="_on_AddFolder_button_up"]
+[connection signal="button_up" from="UserSettingsWindow/Toolbar/h/SaveButton" to="." method="_on_UserSettingsSaveButton_button_up"]
+[connection signal="button_up" from="UserSettingsWindow/Toolbar/h/CloseButton" to="." method="_on_UserSettingsCloseButton_button_up"]
+[connection signal="button_up" from="TaskView/Toolbar/h/SaveButton" to="." method="_on_TaskViewSaveButton_button_up"]
+[connection signal="button_up" from="TaskView/Toolbar/h/CloseButton" to="." method="_on_TaskViewCloseButton_button_up"]

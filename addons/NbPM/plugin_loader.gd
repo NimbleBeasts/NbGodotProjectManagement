@@ -46,7 +46,8 @@ var project_screen_instance = null
 ###############################################################################
 
 var config_project = {
-	"user_names": [],
+	"user_names": ["admin"],
+	"categories": ["Backlog", "To do", "In progress", "Done"],
 	"exclude_folders": ["addons"],
 	"tags": ["TODO", "FIXME", "NOTE"]
 }
@@ -58,8 +59,19 @@ var config_user = {
 
 var todo_cache = {}
 
-func update_project_config():
-	todo_dock_instance.update_project_config(config_project)
+var project_cfg_provided = true
+var user_cfg_provided = true
+
+func save_user_config():
+	_save_config(PM_USER_CONFIG, config_user)
+
+func save_project_config():
+	_update_project_config()
+	_save_config(PM_PROJECT_CONFIG, config_project)
+
+func _update_project_config():
+	todo_dock_instance.update_project_config()
+	project_screen_instance.update_project_config()
 
 func store_todo_database(database):
 	config_user.todo_database = database
@@ -76,12 +88,13 @@ func _enter_tree():
 	
 	# Setup main screen
 	project_screen_instance = Scene_ProjectScreen.instance()
+	project_screen_instance.setup(self, project_cfg_provided, user_cfg_provided)
 	get_editor_interface().get_editor_viewport().add_child(project_screen_instance, true)
 	make_visible(false)
 	
 	# Setup todo dock
 	todo_dock_instance = Scene_TodoDock.instance()
-	todo_dock_instance.setup(self, config_project, config_user.todo_database)
+	todo_dock_instance.setup(self, config_user.todo_database)
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, todo_dock_instance)
 
 
@@ -122,6 +135,7 @@ func _load_configs():
 	if not cfg.file_exists(PM_DIRECTORY + PM_PROJECT_CONFIG):
 		# Create project config
 		_save_config(PM_PROJECT_CONFIG, config_project)
+		project_cfg_provided = false
 	else:
 		# Load project config
 		config_project = _load_config(PM_PROJECT_CONFIG)
@@ -130,6 +144,7 @@ func _load_configs():
 	if not cfg.file_exists(PM_DIRECTORY + PM_USER_CONFIG):
 		# Create project config
 		_save_config(PM_USER_CONFIG, config_user)
+		user_cfg_provided = false
 	else:
 		# Load project config
 		config_user = _load_config(PM_USER_CONFIG)
