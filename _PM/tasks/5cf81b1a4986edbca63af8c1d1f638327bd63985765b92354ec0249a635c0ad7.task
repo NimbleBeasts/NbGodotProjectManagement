@@ -1,7 +1,7 @@
 {
 	"title": "Todo Dock Menu",
 	"category": 0,
-	"assigned": 0,
+	"assigned": 1,
 	"timestamp": 1643300391,
 	"hash": "5cf81b1a4986edbca63af8c1d1f638327bd63985765b92354ec0249a635c0ad7",
 	"description": "- Impl menu options (filter)\n- make it run again :D",

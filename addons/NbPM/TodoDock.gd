@@ -75,7 +75,8 @@ func _update_todos():
 		# Remove old db relicts
 		_clean_deleted_files()
 		# Save the new db
-		ref.store_todo_database(_todo_database)
+		ref.config_user.todo_database = _todo_database.duplicate()
+		ref.save_user_config()
 		# Re-built todo tree
 		_update_gui()
 

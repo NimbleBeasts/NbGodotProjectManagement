@@ -20,13 +20,14 @@ __meta__ = {
 
 [node name="Toolbar" type="HBoxContainer" parent="."]
 margin_right = 1024.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 
 [node name="UpdateLabel" type="Label" parent="Toolbar"]
+margin_top = 8.0
 margin_right = 85.0
-margin_bottom = 24.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 64, 24 )
 text = "Force Update"
 valign = 1
@@ -34,23 +35,47 @@ valign = 1
 [node name="UpdateButton" type="Button" parent="Toolbar"]
 margin_left = 89.0
 margin_right = 113.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
 icon = ExtResource( 5 )
 flat = true
 expand_icon = true
 
-[node name="Spacer" type="Control" parent="Toolbar"]
+[node name="Spacer2" type="Control" parent="Toolbar"]
 margin_left = 117.0
+margin_right = 133.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 16, 24 )
+
+[node name="TasksLabel" type="Label" parent="Toolbar"]
+margin_left = 137.0
+margin_top = 8.0
+margin_right = 173.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 36, 24 )
+text = "Filter"
+valign = 1
+
+[node name="FilterButton" type="CheckButton" parent="Toolbar"]
+margin_left = 177.0
+margin_right = 253.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Spacer" type="Control" parent="Toolbar"]
+margin_left = 257.0
 margin_right = 849.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 
 [node name="SettingsLabel" type="Label" parent="Toolbar"]
 margin_left = 853.0
+margin_top = 8.0
 margin_right = 917.0
-margin_bottom = 24.0
+margin_bottom = 32.0
 rect_min_size = Vector2( 64, 24 )
 text = "Settings"
 valign = 1
@@ -58,13 +83,13 @@ valign = 1
 [node name="UserButton" type="Button" parent="Toolbar"]
 margin_left = 921.0
 margin_right = 963.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 text = "User"
 
 [node name="ProjectButton" type="Button" parent="Toolbar"]
 margin_left = 967.0
 margin_right = 1024.0
-margin_bottom = 24.0
+margin_bottom = 40.0
 text = "Project"
 
 [node name="ProjectSettingsWindow" type="Control" parent="."]
@@ -381,9 +406,9 @@ text = "Select current user"
 valign = 1
 
 [node name="TaskView" type="Control" parent="."]
-margin_top = 28.0
+margin_top = 44.0
 margin_right = 1024.0
-margin_bottom = 268.0
+margin_bottom = 284.0
 rect_min_size = Vector2( 0, 240 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -572,7 +597,7 @@ __meta__ = {
 }
 
 [node name="Scroll" type="ScrollContainer" parent="."]
-margin_top = 272.0
+margin_top = 288.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -581,7 +606,7 @@ scroll_vertical_enabled = false
 
 [node name="h" type="HBoxContainer" parent="Scroll"]
 margin_right = 1024.0
-margin_bottom = 328.0
+margin_bottom = 312.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 24
@@ -590,6 +615,7 @@ __meta__ = {
 }
 
 [connection signal="button_up" from="Toolbar/UpdateButton" to="." method="_on_UpdateButton_button_up"]
+[connection signal="toggled" from="Toolbar/FilterButton" to="." method="_on_FilterButton_toggled"]
 [connection signal="button_up" from="Toolbar/UserButton" to="." method="_on_UserButton_button_up"]
 [connection signal="button_up" from="Toolbar/ProjectButton" to="." method="_on_ProjectButton_button_up"]
 [connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/SaveButton" to="." method="_on_ProjectSettingsSaveButton_button_up"]

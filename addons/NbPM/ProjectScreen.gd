@@ -29,7 +29,7 @@ var base_color: Color
 
 var task_timestamp = 0
 
-
+var filter = false
 
 func hide_all():
 	$ProjectSettingsWindow.hide()
@@ -158,9 +158,6 @@ func _add_setting_items(ref, array):
 
 # If provided null, indicates, project was not set up.
 func setup(loader_ref, project_cfg_provided, user_cfg_provided):
-	print("setup")
-	print("project: " + str(project_cfg_provided))
-	print("user: " + str(user_cfg_provided))
 	assert(loader_ref)
 	ref = loader_ref
 	_project_cfg_provided = project_cfg_provided
@@ -194,52 +191,40 @@ func setup_steps():
 		_update_tasks()
 
 
-
-func new_task(category = -1, context = {}):
+## Create a new task
+func new_task(category = 0, context = {}):
+	$TaskView/Input/Title.text = "Title"
+	$TaskView/Input/Stage.select(category)
+	$TaskView/Input/Assigned.select(0)
+	$TaskView/Description.text = ""
+	$TaskView/Input/TimestampLabel.set_text(_get_datetime_string(_get_local_unix_time()))
 	$TaskView.show()
-	# Title, Category, Assigned, Timestamp created, Description
-	
-	#TODO reset everything
 
 
+## View existing task
 func view_task(task_hash):
-	$TaskView.show()
-	
 	for task in tasks:
 		if task.hash == task_hash:
 			$TaskView/Input/Title.text = task.title
 			$TaskView/Input/Stage.select(task.category)
 			$TaskView/Input/Assigned.select(task.assigned)
 			task_timestamp = task.timestamp
+			$TaskView/Input/TimestampLabel.set_text(_get_datetime_string(task_timestamp))
 			$TaskView/Description.text = task.description
+			break
+	$TaskView.show()
 
+## Delete task
 func delete_task(task_hash):
 	var dir = Directory.new()
 	dir.remove(ref.PM_TASK_DIRECTORY + "/" + task_hash + ".task")
 	_update_tasks()
 
+
+
 func _update_tasks():
-	print("_update_tasks")
 	_scan_tasks()
 	_update_gui()
-
-
-func _update_gui():
-	#TODO: only re-render, if file has changed
-	var id = 0
-	print("_update_gui")
-	
-	# Loop over categories
-	for lane in $Scroll/h.get_children():
-		lane.clear()
-
-		# Check if task matches category
-		for task in tasks:
-			if task.category == id:
-				var assigned_string =  ref.config_project.user_names[task.assigned]
-				lane.add(task, assigned_string)
-		
-		id += 1
 
 
 func _scan_tasks():
@@ -266,6 +251,22 @@ func _scan_file(file_name):
 	tasks.append(parse_json(file.get_as_text()))
 	file.close()
 
+
+func _update_gui():
+	#TODO: only re-render, if file has changed
+	var id = 0
+	
+	# Loop over categories
+	for lane in $Scroll/h.get_children():
+		lane.clear()
+
+		# Check if task matches category
+		for task in tasks:
+			if task.category == id:
+				var assigned_string =  ref.config_project.user_names[task.assigned]
+				if not filter or (filter and task.assigned == ref.config_user.user_id):
+					lane.add(task, assigned_string)
+		id += 1
 
 
 func _process(delta):
@@ -308,9 +309,21 @@ func move_task(id, task_hash):
 			_update_tasks()
 			break
 
+func _get_datetime_string(unixTime):
+	var dict = OS.get_datetime_from_unix_time(unixTime)
+	return "%0*d" % [2, dict.day] + "/"  + "%0*d" % [2, dict.month] + "/" + str(dict.year) + " - " + "%0*d" % [2, dict.hour] + ":" + "%0*d" % [2, dict.minute]
+
+func _get_local_unix_time():
+	var date = OS.get_datetime_from_unix_time(OS.get_unix_time())
+	var time = OS.get_time()
+	date.hour = time.hour
+	date.minute = time.minute
+	return OS.get_unix_time_from_datetime(date)
+
+
 func _on_TaskViewSaveButton_button_up():
 	if task_timestamp == 0:
-		task_timestamp = OS.get_unix_time()
+		task_timestamp = _get_local_unix_time()
 	
 	var time_hash = str(task_timestamp).sha256_text()
 	
@@ -394,3 +407,8 @@ func _on_TaskViewCloseButton_button_up():
 
 func _on_UpdateButton_button_up():
 	_update_tasks()
+
+
+func _on_FilterButton_toggled(button_pressed):
+	filter = button_pressed
+	_update_gui()

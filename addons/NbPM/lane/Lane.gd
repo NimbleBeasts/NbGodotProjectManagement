@@ -28,6 +28,7 @@ func clear():
 	for card in $v/Items/v.get_children():
 		card.queue_free()
 	_count = 0
+	$v/Toolbar/ItemCount.set_text(str(_count))
 
 
 func add(context, assigned_string):

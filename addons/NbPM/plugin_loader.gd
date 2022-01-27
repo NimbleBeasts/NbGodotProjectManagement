@@ -31,6 +31,7 @@ const PM_PROJECT_CONFIG = "project.cfg"
 const PM_USER_CONFIG = "user.cfg"
 const TODO_CACHE = "cache.dat"
 
+
 ###############################################################################
 # Scenes
 ###############################################################################
@@ -44,7 +45,6 @@ var project_screen_instance = null
 ###############################################################################
 # Configs
 ###############################################################################
-
 var config_project = {
 	"user_names": ["admin"],
 	"categories": ["Backlog", "To do", "In progress", "Done"],
@@ -57,31 +57,14 @@ var config_user = {
 	"todo_database": []
 }
 
+###############################################################################
+# State variables
+###############################################################################
 var todo_cache = {}
 
 var project_cfg_provided = true
 var user_cfg_provided = true
 
-func save_user_config():
-	_save_config(PM_USER_CONFIG, config_user)
-
-func save_project_config():
-	_update_project_config()
-	_save_config(PM_PROJECT_CONFIG, config_project)
-
-func _update_project_config():
-	todo_dock_instance.update_project_config()
-	project_screen_instance.update_project_config()
-
-func store_todo_database(database):
-	config_user.todo_database = database
-	_save_config(PM_USER_CONFIG, config_user)
-
-func jump_to_main_screen(metadata):
-	if project_screen_instance:
-		project_screen_instance.jump_to_main_screen(metadata)
-		make_visible(true)
-		get_editor_interface().set_main_screen_editor(get_plugin_name())
 
 func _enter_tree():
 	_load_configs()
@@ -96,6 +79,11 @@ func _enter_tree():
 	todo_dock_instance = Scene_TodoDock.instance()
 	todo_dock_instance.setup(self, config_user.todo_database)
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, todo_dock_instance)
+	
+	if todo_dock_instance and project_screen_instance:
+		print(get_plugin_name() + ": Succesfully loaded")
+	else:
+		printerr(get_plugin_name() + ": Failed to load")
 
 
 func _exit_tree():
@@ -119,8 +107,31 @@ func get_plugin_name():
 
 func get_plugin_icon():
 	# Must return some kind of Texture for the icon.
-	return get_editor_interface().get_base_control().get_icon("SpriteSheet", "EditorIcons")
+	#return get_editor_interface().get_base_control().get_icon("SpriteSheet", "EditorIcons")
+	return preload("res://addons/NbPM/icons/pm_icon.png")
 
+
+func save_user_config():
+	_save_file(PM_USER_CONFIG, config_user)
+
+func save_project_config():
+	_update_project_config()
+	_save_file(PM_PROJECT_CONFIG, config_project)
+
+func _update_project_config():
+	todo_dock_instance.update_project_config()
+	project_screen_instance.update_project_config()
+
+
+## Open main screen
+func jump_to_main_screen(metadata):
+	if project_screen_instance:
+		project_screen_instance.jump_to_main_screen(metadata)
+		make_visible(true)
+		get_editor_interface().set_main_screen_editor(get_plugin_name())
+
+
+## Load config files, create files if needed
 func _load_configs():
 	var dir = Directory.new()
 	var cfg = File.new()
@@ -134,20 +145,20 @@ func _load_configs():
 	# Project config
 	if not cfg.file_exists(PM_DIRECTORY + PM_PROJECT_CONFIG):
 		# Create project config
-		_save_config(PM_PROJECT_CONFIG, config_project)
+		_save_file(PM_PROJECT_CONFIG, config_project)
 		project_cfg_provided = false
 	else:
 		# Load project config
-		config_project = _load_config(PM_PROJECT_CONFIG)
+		config_project = _load_file(PM_PROJECT_CONFIG)
 	
 	# User config
 	if not cfg.file_exists(PM_DIRECTORY + PM_USER_CONFIG):
 		# Create project config
-		_save_config(PM_USER_CONFIG, config_user)
+		_save_file(PM_USER_CONFIG, config_user)
 		user_cfg_provided = false
 	else:
 		# Load project config
-		config_user = _load_config(PM_USER_CONFIG)
+		config_user = _load_file(PM_USER_CONFIG)
 
 	# Add user.cfg to Git Ignore
 	if not cfg.file_exists(PM_DIRECTORY + ".gitignore"):
@@ -155,13 +166,17 @@ func _load_configs():
 		cfg.store_line("/user.cfg")
 		cfg.close()
 
-func _save_config(file: String, settings: Dictionary):
+
+## file saving
+func _save_file(file: String, settings: Dictionary):
 	var cfg = File.new()
 	cfg.open(PM_DIRECTORY + file, File.WRITE)
 	cfg.store_line(JSON.print(settings, "\t"))
 	cfg.close()
 
-func _load_config(file: String):
+
+## file loading
+func _load_file(file: String):
 	var cfg = File.new()
 	cfg.open(PM_DIRECTORY + file, File.READ)
 	var return_val = parse_json(cfg.get_as_text())
