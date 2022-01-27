@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
+[ext_resource path="res://addons/NbPM/icons/caret-down-solid.svg" type="Texture" id=1]
 [ext_resource path="res://addons/NbPM/card/Card.gd" type="Script" id=2]
 [ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=3]
 [ext_resource path="res://addons/NbPM/font/font12.tres" type="DynamicFont" id=4]
+[ext_resource path="res://addons/NbPM/icons/external-link-alt-solid.svg" type="Texture" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -11,7 +13,7 @@
 [node name="Card" type="Control"]
 margin_right = 308.0
 margin_bottom = 152.0
-rect_min_size = Vector2( 0, 152 )
+rect_min_size = Vector2( 0, 160 )
 size_flags_horizontal = 3
 script = ExtResource( 2 )
 __meta__ = {
@@ -46,15 +48,23 @@ __meta__ = {
 
 [node name="toolbar" type="HBoxContainer" parent="Bg/v"]
 margin_right = 284.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 16 )
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 custom_constants/separation = 8
 
-[node name="Icon" type="TextureRect" parent="Bg/v/toolbar"]
-margin_right = 16.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 16, 16 )
+[node name="IconHolder" type="Control" parent="Bg/v/toolbar"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+
+[node name="Icon" type="TextureRect" parent="Bg/v/toolbar/IconHolder"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -4.0
+margin_bottom = -4.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 texture = ExtResource( 3 )
@@ -64,45 +74,44 @@ __meta__ = {
 }
 
 [node name="Title" type="Label" parent="Bg/v/toolbar"]
-margin_left = 24.0
-margin_top = 2.0
-margin_right = 224.0
-margin_bottom = 18.0
-rect_min_size = Vector2( 0, 16 )
+margin_left = 32.0
+margin_right = 220.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 text = "Todotitle"
+valign = 1
 clip_text = true
 
 [node name="View" type="Button" parent="Bg/v/toolbar"]
-margin_left = 232.0
-margin_right = 251.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 16, 16 )
+margin_left = 228.0
+margin_right = 252.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "v"
+icon = ExtResource( 5 )
+flat = true
 expand_icon = true
 
 [node name="Menu" type="MenuButton" parent="Bg/v/toolbar"]
-margin_left = 259.0
+margin_left = 260.0
 margin_right = 284.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 16, 16 )
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
 focus_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-text = "m"
-flat = false
+icon = ExtResource( 1 )
 expand_icon = true
 
 [node name="Description" type="RichTextLabel" parent="Bg/v"]
-margin_top = 24.0
+margin_top = 28.0
 margin_right = 284.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 0, 84 )
+margin_bottom = 114.0
+rect_min_size = Vector2( 0, 64 )
 mouse_filter = 1
-size_flags_horizontal = 3
-size_flags_vertical = 0
+size_flags_vertical = 3
 custom_styles/focus = SubResource( 1 )
 custom_styles/normal = SubResource( 2 )
 bbcode_enabled = true
@@ -127,16 +136,15 @@ __meta__ = {
 }
 
 [node name="Content" type="Control" parent="Bg/v"]
-margin_top = 112.0
+margin_top = 118.0
 margin_right = 284.0
-margin_bottom = 128.0
-rect_min_size = Vector2( 0, 16 )
+margin_bottom = 136.0
+rect_min_size = Vector2( 0, 18 )
 mouse_filter = 1
 size_flags_horizontal = 3
-size_flags_vertical = 0
 
 [node name="Assigned" type="Label" parent="Bg/v/Content"]
-margin_right = 124.0
+anchor_right = 1.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 16 )
 size_flags_horizontal = 3
@@ -148,4 +156,3 @@ __meta__ = {
 }
 
 [connection signal="button_up" from="Bg/v/toolbar/View" to="." method="_on_View_button_up"]
-[connection signal="button_up" from="Bg/v/toolbar/Menu" to="." method="_on_Menu_button_up"]

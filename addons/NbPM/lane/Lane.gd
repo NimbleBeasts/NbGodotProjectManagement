@@ -30,9 +30,9 @@ func clear():
 	_count = 0
 
 
-func add(context):
+func add(context, assigned_string):
 	var card = Scene_Card.instance()
-	card.setup(pm_ref, context, base_color)
+	card.setup(pm_ref, context, assigned_string, base_color)
 	$v/Items/v.add_child(card)
 	_count += 1
 	$v/Toolbar/ItemCount.set_text(str(_count))

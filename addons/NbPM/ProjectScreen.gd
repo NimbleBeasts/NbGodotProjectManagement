@@ -195,6 +195,9 @@ func setup_steps():
 func new_task(category = -1, context = {}):
 	$TaskView.show()
 	# Title, Category, Assigned, Timestamp created, Description
+	
+	#TODO reset everything
+
 
 func view_task(task_hash):
 	$TaskView.show()
@@ -206,6 +209,11 @@ func view_task(task_hash):
 			$TaskView/Input/Assigned.select(task.assigned)
 			task_timestamp = task.timestamp
 			$TaskView/Description.text = task.description
+
+func delete_task(task_hash):
+	var dir = Directory.new()
+	dir.remove(task_directory + "/" + task_hash + ".task")
+	_update_tasks()
 
 func _update_tasks():
 	print("_update_tasks")
@@ -221,11 +229,12 @@ func _update_gui():
 	# Loop over categories
 	for lane in $Scroll/h.get_children():
 		lane.clear()
-		print("lane id: " + str(id))
+
 		# Check if task matches category
 		for task in tasks:
 			if task.category == id:
-				lane.add(task)
+				var assigned_string =  ref.config_project.user_names[task.assigned]
+				lane.add(task, assigned_string)
 		
 		id += 1
 

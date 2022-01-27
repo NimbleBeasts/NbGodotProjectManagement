@@ -61,6 +61,7 @@ func setup_dropdown():
 
 	popup_menu.add_separator()
 	popup_menu.add_item("Help", 10)
+	
 	popup_menu.connect("id_pressed", self, "_menu_click")
 
 func _menu_click(id):
