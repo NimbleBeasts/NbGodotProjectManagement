@@ -1,0 +1,11 @@
+{
+	"title": "Filter option for tasks",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1643300028,
+	"hash": "e92eaadeffc98a6f840f7a9ac884005031894f1b6605f02e7bc01aedbd9fdc92",
+	"description": "Implement a filter for only displaying tasks of selected user.",
+	"todos": [
+
+	]
+}

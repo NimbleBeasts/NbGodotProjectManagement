@@ -1,0 +1,11 @@
+{
+	"title": "Recalc Card Numbers",
+	"category": 1,
+	"assigned": 0,
+	"timestamp": 1643299833,
+	"hash": "ddbc29c874d2b9c8e5f5a07f890c75f8b7925a2be7f606e832e6c8427976abda",
+	"description": "Numbers not being recalculated if an item was deleted.",
+	"todos": [
+
+	]
+}

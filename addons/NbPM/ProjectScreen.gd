@@ -1,31 +1,34 @@
 tool
 extends Control
 
-
+###############################################################################
+# Scenes
+###############################################################################
 const Scene_Lane = preload("res://addons/NbPM/lane/Lane.tscn")
 const Scene_InputField = preload("res://addons/NbPM/settings/InputField.tscn")
 
+###############################################################################
+# References
+###############################################################################
 var Settings_Category = null
 var Settings_User = null
 var Settings_Tag = null
 var Settings_Folder = null
+# Loader Reference
+var ref = null 
 
+###############################################################################
+# State variables
+###############################################################################
 var _project_cfg_provided = false
 var _user_cfg_provided = false
-
 var drag = false
 
 var tasks = []
-
 var base_color: Color
-
-#TODO this needs to be handover by plugin loader
-var task_directory = "res://_PM/tasks"
 
 var task_timestamp = 0
 
-# Loader Reference
-var ref = null
 
 
 func hide_all():
@@ -212,7 +215,7 @@ func view_task(task_hash):
 
 func delete_task(task_hash):
 	var dir = Directory.new()
-	dir.remove(task_directory + "/" + task_hash + ".task")
+	dir.remove(ref.PM_TASK_DIRECTORY + "/" + task_hash + ".task")
 	_update_tasks()
 
 func _update_tasks():
@@ -245,7 +248,7 @@ func _scan_tasks():
 	tasks = []
 	
 	# Scan task directory
-	if dir.open(task_directory) == OK:
+	if dir.open(ref.PM_TASK_DIRECTORY) == OK:
 		dir.list_dir_begin(true, true)
 		var file_name = dir.get_next()
 		
@@ -259,12 +262,10 @@ func _scan_tasks():
 
 func _scan_file(file_name):
 	var file = File.new()
-	file.open(task_directory + "/" + file_name, File.READ)
+	file.open(ref.PM_TASK_DIRECTORY + "/" + file_name, File.READ)
 	tasks.append(parse_json(file.get_as_text()))
 	file.close()
 
-func _store_taks():
-	pass
 
 
 func _process(delta):
@@ -296,13 +297,12 @@ func _on_SettingsButton_button_up():
 
 
 func move_task(id, task_hash):
-	
 	for task in tasks:
 		if task.hash == task_hash:
 			var data = task.duplicate()
 			data.category = id
 			var file = File.new()
-			file.open(task_directory + "/" + task_hash + ".task", File.WRITE)
+			file.open(ref.PM_TASK_DIRECTORY + "/" + task_hash + ".task", File.WRITE)
 			file.store_line(JSON.print(data, "\t"))
 			file.close()
 			_update_tasks()
@@ -325,7 +325,7 @@ func _on_TaskViewSaveButton_button_up():
 	}
 	
 	var file = File.new()
-	file.open(task_directory + "/" + time_hash + ".task", File.WRITE)
+	file.open(ref.PM_TASK_DIRECTORY + "/" + time_hash + ".task", File.WRITE)
 	file.store_line(JSON.print(save_task, "\t"))
 	file.close()
 	

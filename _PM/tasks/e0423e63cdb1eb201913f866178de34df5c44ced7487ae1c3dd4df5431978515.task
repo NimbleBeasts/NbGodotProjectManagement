@@ -1,0 +1,11 @@
+{
+	"title": "Help page",
+	"category": 0,
+	"assigned": 0,
+	"timestamp": 1643300477,
+	"hash": "e0423e63cdb1eb201913f866178de34df5c44ced7487ae1c3dd4df5431978515",
+	"description": "- create help text file\n- implement help view\n- linkage to github wiki\n- setup github wiki (lol)\n- add readme to github",
+	"todos": [
+
+	]
+}
