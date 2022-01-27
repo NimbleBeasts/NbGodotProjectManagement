@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://addons/NbPM/ProjectScreen.gd" type="Script" id=1]
 [ext_resource path="res://addons/NbPM/icons/save-solid.svg" type="Texture" id=2]
 [ext_resource path="res://addons/NbPM/icons/plus-square-regular.svg" type="Texture" id=3]
 [ext_resource path="res://addons/NbPM/icons/times-solid.svg" type="Texture" id=4]
+[ext_resource path="res://addons/NbPM/icons/sync-alt-solid.svg" type="Texture" id=5]
 
 [node name="PM" type="VBoxContainer"]
 anchor_right = 1.0
@@ -22,9 +23,31 @@ margin_right = 1024.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
-alignment = 2
 
-[node name="Label" type="Label" parent="Toolbar"]
+[node name="UpdateLabel" type="Label" parent="Toolbar"]
+margin_right = 85.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 64, 24 )
+text = "Force Update"
+valign = 1
+
+[node name="UpdateButton" type="Button" parent="Toolbar"]
+margin_left = 89.0
+margin_right = 113.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+icon = ExtResource( 5 )
+flat = true
+expand_icon = true
+
+[node name="Spacer" type="Control" parent="Toolbar"]
+margin_left = 117.0
+margin_right = 849.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+
+[node name="SettingsLabel" type="Label" parent="Toolbar"]
 margin_left = 853.0
 margin_right = 917.0
 margin_bottom = 24.0
@@ -566,6 +589,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="button_up" from="Toolbar/UpdateButton" to="." method="_on_UpdateButton_button_up"]
 [connection signal="button_up" from="Toolbar/UserButton" to="." method="_on_UserButton_button_up"]
 [connection signal="button_up" from="Toolbar/ProjectButton" to="." method="_on_ProjectButton_button_up"]
 [connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/SaveButton" to="." method="_on_ProjectSettingsSaveButton_button_up"]

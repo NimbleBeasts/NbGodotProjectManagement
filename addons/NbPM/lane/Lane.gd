@@ -8,14 +8,17 @@ var pm_ref = null
 const Scene_Card = preload("res://addons/NbPM/card/Card.tscn")
 
 var _id = 0
+var _count = 0
 
+var base_color: Color
 
-
-func setup(ref, title, id):
+func setup(ref, title, id, color):
 	$v/Toolbar/Title.set_text(title)
 	pm_ref = ref
 	_id = id
-
+	
+	base_color = color
+	$v/Toolbar/ItemCount/Bg.color = base_color
 
 func drop(data):
 	pm_ref.move_task(_id, data)
@@ -24,11 +27,16 @@ func drop(data):
 func clear():
 	for card in $v/Items/v.get_children():
 		card.queue_free()
+	_count = 0
+
 
 func add(context):
 	var card = Scene_Card.instance()
-	card.setup(pm_ref, context)
+	card.setup(pm_ref, context, base_color)
 	$v/Items/v.add_child(card)
+	_count += 1
+	$v/Toolbar/ItemCount.set_text(str(_count))
+
 
 func drag_start():
 	$DropZone.show()

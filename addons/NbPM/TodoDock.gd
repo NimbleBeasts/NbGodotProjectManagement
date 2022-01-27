@@ -30,7 +30,7 @@ func update_project_config():
 	# Search regex
 	var regex_string = "(?:#|//)\\s*(%s)\\s*(\\:)?\\s*([^\\n]+)" % string
 	regex.compile(regex_string)
-	print("scanning with: " + regex_string)
+	#print("scanning with: " + regex_string)
 	assert(regex.is_valid())
 
 	# Setup Todo Dock
@@ -65,7 +65,7 @@ func setup_dropdown():
 
 func _menu_click(id):
 	print("click")
-	print(id)
+
 
 
 func _update_todos():
@@ -160,7 +160,7 @@ func _scan_directory(path = "res://"):
 					_file_list.append(file_path)
 					# Scan file
 					changes += _scan_file(path, file_name)
-					print("-----------------------------------")
+					#print("-----------------------------------")
 			
 			file_name = dir.get_next()
 	
@@ -185,13 +185,13 @@ func _scan_file(path, file_name):
 	# Look up file in database, check for modification
 	var db_index = _db_find_index_by_file_path(file_path)
 
-	print("file: " + file_name)
+	#print("file: " + file_name)
 	
 	# Check if we have an existing library
 	if db_index != -1:
 		if _todo_database[db_index].hash == file_hash:
 			# File has not been changed since last parsing
-			print("no changes")
+			#print("no changes")
 			return 0
 
 		# Clear old entries

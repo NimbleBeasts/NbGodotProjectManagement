@@ -5,12 +5,13 @@ var pm_ref = null
 
 var _context = {}
 
-func setup(ref, context):
+func setup(ref, context, color):
 	pm_ref = ref
 	_context = context
 	
 	$Bg/v/toolbar/Title.set_text(str(context.title))
 	$Bg/v/Description.bbcode_text = str(context.description)
+	$Bg.color = color
 	
 	
 	var popup_menu = $Bg/v/toolbar/Menu.get_popup()

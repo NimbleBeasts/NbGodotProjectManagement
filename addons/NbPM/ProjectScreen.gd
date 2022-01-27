@@ -17,6 +17,8 @@ var drag = false
 
 var tasks = []
 
+var base_color: Color
+
 #TODO this needs to be handover by plugin loader
 var task_directory = "res://_PM/tasks"
 
@@ -70,9 +72,8 @@ func update_project_config():
 	
 		# Update Lanes
 		var lane = Scene_Lane.instance()
-		lane.setup(self, cat, id)
+		lane.setup(self, cat, id, base_color)
 		$Scroll/h.add_child(lane)
-		
 		id += 1
 	
 	id = 0
@@ -157,12 +158,12 @@ func setup(loader_ref, project_cfg_provided, user_cfg_provided):
 	print("setup")
 	print("project: " + str(project_cfg_provided))
 	print("user: " + str(user_cfg_provided))
-	
 	assert(loader_ref)
 	ref = loader_ref
 	_project_cfg_provided = project_cfg_provided
 	_user_cfg_provided = user_cfg_provided
-	
+	base_color = loader_ref.get_editor_interface().get_editor_settings().get_setting("interface/theme/base_color")
+		
 	# Setup project config window
 	update_project_config()
 	# Setup user config window
@@ -170,6 +171,8 @@ func setup(loader_ref, project_cfg_provided, user_cfg_provided):
 	
 	# Project config was not set-up, lets do this first
 	setup_steps()
+	
+
 
 
 func setup_steps():
@@ -213,15 +216,17 @@ func _update_tasks():
 func _update_gui():
 	#TODO: only re-render, if file has changed
 	var id = 0
+	print("_update_gui")
 	
 	# Loop over categories
 	for lane in $Scroll/h.get_children():
 		lane.clear()
-		
+		print("lane id: " + str(id))
 		# Check if task matches category
 		for task in tasks:
 			if task.category == id:
 				lane.add(task)
+		
 		id += 1
 
 
@@ -238,7 +243,7 @@ func _scan_tasks():
 		while file_name != "":
 			if not dir.current_is_dir():
 				if file_name.get_extension() == "task":
-					print(file_name)
+					#print(file_name)
 					_scan_file(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
@@ -320,14 +325,14 @@ func _on_TaskViewSaveButton_button_up():
 	$TaskView.hide()
 
 
-func _remove_category_item(id):
-	pass
-func _remove_user_item(id):
-	pass
-func _remove_tag_item(id):
-	pass
-func _remove_folder_item(id):
-	pass
+func _remove_category_item(reference, id):
+	reference.queue_free()
+func _remove_user_item(reference, id):
+	reference.queue_free()
+func _remove_tag_item(reference, id):
+	reference.queue_free()
+func _remove_folder_item(reference, id):
+	reference.queue_free()
 
 func _add_setting_item(reference, remove_function, value = ""):
 	var item = Scene_InputField.instance()
@@ -376,3 +381,7 @@ func _on_UserSettingsCloseButton_button_up():
 
 func _on_TaskViewCloseButton_button_up():
 	$TaskView.hide()
+
+
+func _on_UpdateButton_button_up():
+	_update_tasks()
