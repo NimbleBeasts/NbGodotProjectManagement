@@ -29,3 +29,6 @@
 8. Commit everything to Git if needed
 
 > Soon to be available on the Godot asset store.
+
+## Support this project
+This project can be supported via [Itch.io](https://nimblebeastscollective.itch.io/godot-project-manager).
