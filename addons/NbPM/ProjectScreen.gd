@@ -197,6 +197,8 @@ func setup_steps():
 
 ## Create a new task
 func new_task(category = 0, context = {}):
+	task_timestamp = 0
+	
 	if context.empty():
 		$TaskView/Input/Title.text = "Title"
 		$TaskView/Description.text = ""
