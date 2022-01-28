@@ -49,7 +49,8 @@ var config_project = {
 	"user_names": ["admin"],
 	"categories": ["Backlog", "To do", "In progress", "Done"],
 	"exclude_folders": ["addons"],
-	"tags": ["TODO", "FIXME", "NOTE"]
+	"tags": ["TODO", "FIXME", "NOTE"],
+	"linkage": [],
 }
 
 var config_user = {
@@ -77,7 +78,7 @@ func _enter_tree():
 	
 	# Setup todo dock
 	todo_dock_instance = Scene_TodoDock.instance()
-	todo_dock_instance.setup(self, config_user.todo_database)
+	todo_dock_instance.setup(self)
 	add_control_to_dock(EditorPlugin.DOCK_SLOT_LEFT_BR, todo_dock_instance)
 	
 	if todo_dock_instance and project_screen_instance:
@@ -121,6 +122,7 @@ func save_project_config():
 func _update_project_config():
 	todo_dock_instance.update_project_config()
 	project_screen_instance.update_project_config()
+
 
 
 ## Open main screen

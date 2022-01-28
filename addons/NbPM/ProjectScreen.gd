@@ -28,6 +28,9 @@ var tasks = []
 var base_color: Color
 
 var task_timestamp = 0
+var task_context = {}
+
+var needs_update = false
 
 var filter = false
 
@@ -40,7 +43,6 @@ func hide_all():
 
 # Update the project settings window; Called by loader each time the cfg has changed.
 func update_project_config():
-	print("update_project_config")
 	Settings_Category = get_node("ProjectSettingsWindow/Category/scroll/v")
 	Settings_User = get_node("ProjectSettingsWindow/Users/scroll/v")
 	Settings_Tag = get_node("ProjectSettingsWindow/Tags/scroll/v")
@@ -85,9 +87,11 @@ func update_project_config():
 		$TaskView/Input/Assigned.add_item(user, id)
 		$UserSettingsWindow/UserSelect.add_item(user, id)
 		id += 1
+		
+	if _project_cfg_provided and _user_cfg_provided:
+		needs_update = true
 
 
-	
 # Update the user settings window; Called by loader each time the cfg has changed.
 func update_user_config():
 	print("update_user_config")
@@ -193,12 +197,28 @@ func setup_steps():
 
 ## Create a new task
 func new_task(category = 0, context = {}):
-	$TaskView/Input/Title.text = "Title"
+	if context.empty():
+		$TaskView/Input/Title.text = "Title"
+		$TaskView/Description.text = ""
+	else:
+		task_context = context
+		$TaskView/Input/Title.text = str(task_context.todo.type) + ": " + str(task_context.todo.description)
+		$TaskView/Description.text = "\n\n" + "(File: " + str(task_context.path_file) + " - Last known line: " + str(task_context.todo.line) + ")"
+
 	$TaskView/Input/Stage.select(category)
 	$TaskView/Input/Assigned.select(0)
-	$TaskView/Description.text = ""
+	
 	$TaskView/Input/TimestampLabel.set_text(_get_datetime_string(_get_local_unix_time()))
 	$TaskView.show()
+
+
+## Create a new task from todo
+func jump_to_main_screen(metadata):
+	#{"type": "VIEW_TASK", "task": task}
+	if metadata.type == "VIEW_TASK":
+		view_task(metadata.task)
+	else:
+		new_task(0, metadata)
 
 
 ## View existing task
@@ -214,12 +234,64 @@ func view_task(task_hash):
 			break
 	$TaskView.show()
 
+
+## Save Task
+func save_task():
+	if task_timestamp == 0:
+			task_timestamp = _get_local_unix_time()
+		
+	var time_hash = str(task_timestamp).sha256_text()
+	
+	var save_task = {
+		"title": $TaskView/Input/Title.text,
+		"category": $TaskView/Input/Stage.selected,
+		"assigned": $TaskView/Input/Assigned.selected,
+		"timestamp": task_timestamp,
+		"hash": time_hash,
+		"description": $TaskView/Description.text,
+		"todos": []
+	}
+	
+	var file = File.new()
+	file.open(ref.PM_TASK_DIRECTORY + "/" + time_hash + ".task", File.WRITE)
+	file.store_line(JSON.print(save_task, "\t"))
+	file.close()
+
+	# Reset
+	task_timestamp = 0
+	$TaskView.hide()
+	
+	if not task_context.empty():
+		ref.config_project.linkage.append(
+			{
+				"task": time_hash, 
+				"file": task_context.path_file,
+				"description": task_context.todo.description
+			}
+		)
+		task_context = {}
+		# Saving will trigger update_project_config()
+		ref.save_project_config()
+
+	_update_tasks()
+
+
 ## Delete task
 func delete_task(task_hash):
 	var dir = Directory.new()
 	dir.remove(ref.PM_TASK_DIRECTORY + "/" + task_hash + ".task")
+	
+	var id = 0
+	for link in ref.config_project.linkage:
+		if link.task == task_hash:
+			ref.config_project.linkage.remove(id)
+			ref.save_project_config()
+			break
+		id += 1
+	
 	_update_tasks()
-
+	
+	
 
 
 func _update_tasks():
@@ -273,6 +345,9 @@ func _process(delta):
 	if drag:
 		if not Input.is_mouse_button_pressed(BUTTON_LEFT):
 			stop_card_drag()
+	if needs_update:
+		needs_update = false
+		_update_tasks()
 
 
 func start_card_drag():
@@ -284,8 +359,6 @@ func stop_card_drag():
 	for child in $Scroll/h.get_children():
 		child.drag_stop()
 
-func jump_to_main_screen(metadata):
-	$RichTextLabel.bbcode_text = str(metadata)
 
 
 
@@ -322,29 +395,7 @@ func _get_local_unix_time():
 
 
 func _on_TaskViewSaveButton_button_up():
-	if task_timestamp == 0:
-		task_timestamp = _get_local_unix_time()
-	
-	var time_hash = str(task_timestamp).sha256_text()
-	
-	var save_task = {
-		"title": $TaskView/Input/Title.text,
-		"category": $TaskView/Input/Stage.selected,
-		"assigned": $TaskView/Input/Assigned.selected,
-		"timestamp": task_timestamp,
-		"hash": time_hash,
-		"description": $TaskView/Description.text,
-		"todos": []
-	}
-	
-	var file = File.new()
-	file.open(ref.PM_TASK_DIRECTORY + "/" + time_hash + ".task", File.WRITE)
-	file.store_line(JSON.print(save_task, "\t"))
-	file.close()
-	
-	task_timestamp = 0
-	_update_tasks()
-	$TaskView.hide()
+	save_task()
 
 
 func _remove_category_item(reference, id):

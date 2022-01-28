@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://addons/NbPM/TodoDock.gd" type="Script" id=1]
+[ext_resource path="res://addons/NbPM/icons/sync-alt-solid.svg" type="Texture" id=2]
 
 [node name="NbTodo" type="Control"]
 anchor_right = 1.0
@@ -13,10 +14,25 @@ __meta__ = {
 [node name="ToolbarBox" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 margin_bottom = 24.0
-alignment = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="UpdateButton" type="Button" parent="ToolbarBox"]
+margin_right = 24.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Forcefully Update"
+icon = ExtResource( 2 )
+flat = true
+expand_icon = true
+
+[node name="Spacer" type="Control" parent="ToolbarBox"]
+margin_left = 28.0
+margin_right = 1008.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
 
 [node name="DropdownMenu" type="MenuButton" parent="ToolbarBox"]
 margin_left = 1012.0
@@ -31,5 +47,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="button_up" from="ToolbarBox/UpdateButton" to="." method="_on_UpdateButton_button_up"]
 [connection signal="button_pressed" from="Tree" to="." method="_on_Tree_button_pressed"]
 [connection signal="item_activated" from="Tree" to="." method="_on_Tree_item_activated"]

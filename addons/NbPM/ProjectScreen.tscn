@@ -37,6 +37,7 @@ margin_left = 89.0
 margin_right = 113.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Forcefully Update"
 icon = ExtResource( 5 )
 flat = true
 expand_icon = true
@@ -60,6 +61,7 @@ valign = 1
 margin_left = 177.0
 margin_right = 253.0
 margin_bottom = 40.0
+hint_tooltip = "Show only tasks for which you are responsible"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -84,19 +86,21 @@ valign = 1
 margin_left = 921.0
 margin_right = 963.0
 margin_bottom = 40.0
+hint_tooltip = "User settings"
 text = "User"
 
 [node name="ProjectButton" type="Button" parent="Toolbar"]
 margin_left = 967.0
 margin_right = 1024.0
 margin_bottom = 40.0
+hint_tooltip = "Project settings"
 text = "Project"
 
 [node name="ProjectSettingsWindow" type="Control" parent="."]
 visible = false
-margin_top = 28.0
+margin_top = 44.0
 margin_right = 1024.0
-margin_bottom = 232.0
+margin_bottom = 248.0
 rect_min_size = Vector2( 0, 204 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -146,6 +150,7 @@ margin_left = 968.0
 margin_right = 992.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Save project settings"
 icon = ExtResource( 2 )
 flat = true
 expand_icon = true
@@ -158,6 +163,7 @@ margin_left = 996.0
 margin_right = 1020.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Close settings, discard changes."
 icon = ExtResource( 4 )
 flat = true
 expand_icon = true
@@ -198,6 +204,7 @@ anchor_right = 1.0
 margin_left = -32.0
 margin_right = -8.0
 margin_bottom = 24.0
+hint_tooltip = "Add a new category"
 icon = ExtResource( 3 )
 flat = true
 expand_icon = true
@@ -238,6 +245,7 @@ anchor_right = 1.0
 margin_left = -32.0
 margin_right = -8.0
 margin_bottom = 24.0
+hint_tooltip = "Add a new user"
 icon = ExtResource( 3 )
 flat = true
 expand_icon = true
@@ -275,6 +283,7 @@ anchor_right = 1.0
 margin_left = -32.0
 margin_right = -8.0
 margin_bottom = 24.0
+hint_tooltip = "Add a new tag"
 icon = ExtResource( 3 )
 flat = true
 expand_icon = true
@@ -312,15 +321,16 @@ anchor_right = 1.0
 margin_left = -32.0
 margin_right = -8.0
 margin_bottom = 24.0
+hint_tooltip = "Add a new folder"
 icon = ExtResource( 3 )
 flat = true
 expand_icon = true
 
 [node name="UserSettingsWindow" type="Control" parent="."]
 visible = false
-margin_top = 28.0
+margin_top = 44.0
 margin_right = 1024.0
-margin_bottom = 108.0
+margin_bottom = 124.0
 rect_min_size = Vector2( 0, 80 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -370,6 +380,7 @@ margin_left = 966.0
 margin_right = 990.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Save user settings"
 icon = ExtResource( 2 )
 flat = true
 expand_icon = true
@@ -382,6 +393,7 @@ margin_left = 994.0
 margin_right = 1018.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Discard changes"
 icon = ExtResource( 4 )
 flat = true
 expand_icon = true
@@ -406,6 +418,7 @@ text = "Select current user"
 valign = 1
 
 [node name="TaskView" type="Control" parent="."]
+visible = false
 margin_top = 44.0
 margin_right = 1024.0
 margin_bottom = 284.0
@@ -463,6 +476,7 @@ margin_left = 964.0
 margin_right = 988.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Save task"
 icon = ExtResource( 2 )
 flat = true
 expand_icon = true
@@ -475,6 +489,7 @@ margin_left = 992.0
 margin_right = 1016.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Close / discard changes"
 icon = ExtResource( 4 )
 flat = true
 expand_icon = true
@@ -508,6 +523,7 @@ margin_left = 32.0
 margin_right = 288.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 256, 24 )
+hint_tooltip = "Task title"
 text = "Task Title"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -535,6 +551,7 @@ margin_left = 371.0
 margin_right = 467.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 96, 24 )
+hint_tooltip = "Task category"
 text = "Backlog"
 items = [ "Backlog", null, false, 0, null, "To do", null, false, 1, null, "In progress", null, false, 2, null, "Done", null, false, 3, null ]
 selected = 0
@@ -564,6 +581,7 @@ margin_left = 553.0
 margin_right = 649.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 96, 24 )
+hint_tooltip = "Task responsible"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -597,7 +615,7 @@ __meta__ = {
 }
 
 [node name="Scroll" type="ScrollContainer" parent="."]
-margin_top = 288.0
+margin_top = 44.0
 margin_right = 1024.0
 margin_bottom = 600.0
 size_flags_horizontal = 3
@@ -606,7 +624,7 @@ scroll_vertical_enabled = false
 
 [node name="h" type="HBoxContainer" parent="Scroll"]
 margin_right = 1024.0
-margin_bottom = 312.0
+margin_bottom = 556.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 24

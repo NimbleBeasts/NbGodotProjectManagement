@@ -28,6 +28,8 @@ rect_min_size = Vector2( 0, 28 )
 margin_right = 28.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 28, 28 )
+hint_tooltip = "Task count"
+mouse_filter = 1
 text = "0"
 align = 1
 valign = 1
@@ -62,6 +64,7 @@ size_flags_horizontal = 3
 margin_left = 300.0
 margin_right = 320.0
 margin_bottom = 28.0
+hint_tooltip = "Add a new task to this category"
 text = "+"
 
 [node name="Items" type="ScrollContainer" parent="v"]

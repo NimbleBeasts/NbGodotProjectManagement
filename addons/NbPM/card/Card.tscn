@@ -2,7 +2,7 @@
 
 [ext_resource path="res://addons/NbPM/icons/caret-down-solid.svg" type="Texture" id=1]
 [ext_resource path="res://addons/NbPM/card/Card.gd" type="Script" id=2]
-[ext_resource path="res://addons/NbPM/icons/tasks-solid.svg" type="Texture" id=3]
+[ext_resource path="res://addons/NbPM/icons/pm_icon.png" type="Texture" id=3]
 [ext_resource path="res://addons/NbPM/font/font12.tres" type="DynamicFont" id=4]
 [ext_resource path="res://addons/NbPM/icons/external-link-alt-solid.svg" type="Texture" id=5]
 
@@ -88,6 +88,7 @@ margin_left = 228.0
 margin_right = 252.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "View task"
 size_flags_horizontal = 0
 size_flags_vertical = 0
 icon = ExtResource( 5 )
@@ -99,6 +100,7 @@ margin_left = 260.0
 margin_right = 284.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 24, 24 )
+hint_tooltip = "Task menu"
 focus_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
