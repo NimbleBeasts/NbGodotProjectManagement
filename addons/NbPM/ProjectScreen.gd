@@ -465,3 +465,7 @@ func _on_UpdateButton_button_up():
 func _on_FilterButton_toggled(button_pressed):
 	filter = button_pressed
 	_update_gui()
+
+
+func _on_HelpButton_button_up():
+	OS.shell_open("https://github.com/NimbleBeasts/NbGodotProjectManagement/wiki")

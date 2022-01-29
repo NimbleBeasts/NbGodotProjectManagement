@@ -68,33 +68,46 @@ __meta__ = {
 
 [node name="Spacer" type="Control" parent="Toolbar"]
 margin_left = 257.0
-margin_right = 849.0
+margin_right = 807.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 0, 24 )
 size_flags_horizontal = 3
 
 [node name="SettingsLabel" type="Label" parent="Toolbar"]
-margin_left = 853.0
+margin_left = 811.0
 margin_top = 8.0
-margin_right = 917.0
+margin_right = 875.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 64, 24 )
 text = "Settings"
 valign = 1
 
 [node name="UserButton" type="Button" parent="Toolbar"]
-margin_left = 921.0
-margin_right = 963.0
+margin_left = 879.0
+margin_right = 921.0
 margin_bottom = 40.0
 hint_tooltip = "User settings"
 text = "User"
 
 [node name="ProjectButton" type="Button" parent="Toolbar"]
-margin_left = 967.0
-margin_right = 1024.0
+margin_left = 925.0
+margin_right = 982.0
 margin_bottom = 40.0
 hint_tooltip = "Project settings"
 text = "Project"
+
+[node name="Spacer3" type="Control" parent="Toolbar"]
+margin_left = 986.0
+margin_right = 1002.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 16, 24 )
+
+[node name="HelpButton" type="Button" parent="Toolbar"]
+margin_left = 1006.0
+margin_right = 1024.0
+margin_bottom = 40.0
+hint_tooltip = "Project settings"
+text = "?"
 
 [node name="ProjectSettingsWindow" type="Control" parent="."]
 visible = false
@@ -636,6 +649,7 @@ __meta__ = {
 [connection signal="toggled" from="Toolbar/FilterButton" to="." method="_on_FilterButton_toggled"]
 [connection signal="button_up" from="Toolbar/UserButton" to="." method="_on_UserButton_button_up"]
 [connection signal="button_up" from="Toolbar/ProjectButton" to="." method="_on_ProjectButton_button_up"]
+[connection signal="button_up" from="Toolbar/HelpButton" to="." method="_on_HelpButton_button_up"]
 [connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/SaveButton" to="." method="_on_ProjectSettingsSaveButton_button_up"]
 [connection signal="button_up" from="ProjectSettingsWindow/Toolbar/h/CloseButton" to="." method="_on_ProjectSettingsCloseButton_button_up"]
 [connection signal="button_up" from="ProjectSettingsWindow/Category/AddCategory" to="." method="_on_AddCategory_button_up"]
