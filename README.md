@@ -1,4 +1,4 @@
-# Project Management for Godot
+# Project Management for Godot 4.0 (WIP)
 
 > A Multi-Party Kanban Project Management Plugin for Godot
 
