@@ -6,17 +6,18 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
 [application]
 
-config/name="Nb Project Management"
+config/name="Nb Project Management 4"
 run/main_scene="res://addons/NbPM/ProjectScreen.tscn"
 config/icon="res://icon.png"
+config/features=PackedStringArray("4.0")
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/NbPM/plugin.cfg" )
+enabled=PackedStringArray()
 
 [physics]
 
@@ -28,4 +29,4 @@ environment/default_environment="res://default_env.tres"
 
 [statistics]
 
-force_include=PoolStringArray(  )
+force_include=PackedStringArray()
